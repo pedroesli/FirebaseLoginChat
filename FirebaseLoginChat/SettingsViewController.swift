@@ -68,15 +68,39 @@ class SettingsViewController: UIViewController {
     func deletePressed() {
         self.showDeleteAlert(title: "Cuidado!", message: "Tem certeza que deseja remover a sua conta?") {
             Auth.auth().currentUser?.delete(completion: { error in
-                if let error {
-                    print("Error deleting user: \(error.localizedDescription)")
-                    return
+                if let error = error as? NSError {
+                    let errorCode = AuthErrorCode(_nsError: error)
+                    if errorCode.code == .requiresRecentLogin {
+                        let loginView = LoginViewController()
+                        loginView.isReauthenticationLogin = true
+                        loginView.reauthenticationAction = self.retryDelete
+                        self.present(loginView, animated: true)
+                    } else {
+                        print("Error deleting user: \(error.localizedDescription)")
+                        return
+                    }
                 }
                 
-                self.showAlert(title: "Conta removida", message: "A sua conta foi removida com successo")
-                try! Auth.auth().signOut()
+                self.showAlert(title: "Conta removida", message: "A sua conta foi removida com successo") {
+                    try! Auth.auth().signOut()
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
             })
         }
+    }
+    
+    func retryDelete() {
+        Auth.auth().currentUser?.delete(completion: { error in
+            if let error {
+                print("Error deleting user: \(error.localizedDescription)")
+                return
+            }
+            
+            self.showAlert(title: "Conta removida", message: "A sua conta foi removida com successo") {
+                try! Auth.auth().signOut()
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        })
     }
 }
 

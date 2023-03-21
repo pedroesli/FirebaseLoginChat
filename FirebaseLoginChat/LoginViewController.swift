@@ -10,6 +10,11 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
+    //MARK: Properties
+    var isReauthenticationLogin = false
+    var reauthenticationAction: (() -> Void)?
+    
+    //MARK: UI Properties
     private let firebaseLogo: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "FirebaseLogo")
@@ -108,7 +113,9 @@ class LoginViewController: UIViewController {
         view.addSubview(senhaLabel)
         view.addSubview(senhaTextField)
         view.addSubview(loginButton)
-        view.addSubview(newAccountButton)
+        if !isReauthenticationLogin {
+            view.addSubview(newAccountButton)
+        }
         configureConstraints()
     }
     
@@ -145,29 +152,42 @@ class LoginViewController: UIViewController {
             
             loginButton.topAnchor.constraint(equalTo: senhaTextField.bottomAnchor, constant: 40),
             loginButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            loginButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            
-            newAccountButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
-            newAccountButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            newAccountButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
+            loginButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
         ])
+        
+        if !isReauthenticationLogin {
+            NSLayoutConstraint.activate([
+                newAccountButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+                newAccountButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+                newAccountButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
+            ])
+        }
     }
     
     @objc func loginButtonPressed() {
-        guard let email = emailTextField.text, let password = senhaTextField.text else {
-            self.showAlert(title: "Inválido", message: "Email ou senha não podem ser vazios.")
-            return
-        }
+        guard let email = emailTextField.text, let password = senhaTextField.text else { return }
         
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-          guard let strongSelf = self else { return }
-            if let error {
-                strongSelf.showAlert(title: "Erro", message: "Não foi possível fazer login!")
-                print("Erro ao fazer login: \(error.localizedDescription)")
-                return
+        if isReauthenticationLogin {
+            let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+            Auth.auth().currentUser?.reauthenticate(with: credential, completion: { result, error in
+                if let error {
+                    print("Error ao reautenticar: \(error.localizedDescription)")
+                } else {
+                    self.reauthenticationAction?()
+                }
+                self.dismiss(animated: true)
+            })
+        } else {
+            Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+              guard let strongSelf = self else { return }
+                if let error {
+                    strongSelf.showAlert(title: "Erro", message: "Não foi possível fazer login!")
+                    print("Erro ao fazer login: \(error.localizedDescription)")
+                    return
+                }
+                
+                strongSelf.navigationController?.pushViewController(MainViewController(), animated: true)
             }
-            
-            strongSelf.navigationController?.pushViewController(MainViewController(), animated: true)
         }
     }
     
