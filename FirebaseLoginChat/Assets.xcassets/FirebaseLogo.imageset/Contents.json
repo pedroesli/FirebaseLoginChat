@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Firebase_Logo_Logomark.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
