@@ -12,6 +12,9 @@
 		3793455229C9374E00376A17 /* NavigationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793455129C9374E00376A17 /* NavigationCell.swift */; };
 		3793455629C937BE00376A17 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793455529C937BE00376A17 /* SwitchCell.swift */; };
 		3793455829C93B9000376A17 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793455729C93B9000376A17 /* ButtonCell.swift */; };
+		3793455A29CA794C00376A17 /* EmailVerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793455929CA794C00376A17 /* EmailVerifyViewController.swift */; };
+		3793455C29CCB30F00376A17 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793455B29CCB30F00376A17 /* UIFont+Extensions.swift */; };
+		3793455E29CCBE4200376A17 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793455D29CCBE4200376A17 /* PasswordResetViewController.swift */; };
 		37B4C07C29C273E100EDB4E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B4C07B29C273E100EDB4E5 /* AppDelegate.swift */; };
 		37B4C07E29C273E100EDB4E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B4C07D29C273E100EDB4E5 /* SceneDelegate.swift */; };
 		37B4C08329C273E100EDB4E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37B4C08129C273E100EDB4E5 /* Main.storyboard */; };
@@ -32,6 +35,9 @@
 		3793455129C9374E00376A17 /* NavigationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCell.swift; sourceTree = "<group>"; };
 		3793455529C937BE00376A17 /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		3793455729C93B9000376A17 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
+		3793455929CA794C00376A17 /* EmailVerifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerifyViewController.swift; sourceTree = "<group>"; };
+		3793455B29CCB30F00376A17 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
+		3793455D29CCBE4200376A17 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		37B4C07829C273E100EDB4E5 /* FirebaseLoginChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseLoginChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B4C07B29C273E100EDB4E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37B4C07D29C273E100EDB4E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +108,9 @@
 				37B4C09A29C3D14400EDB4E5 /* UIViewController+Extensions.swift */,
 				37B4C09C29C3DA6C00EDB4E5 /* MainViewController.swift */,
 				3793454C29C4F49200376A17 /* SettingsViewController.swift */,
+				3793455929CA794C00376A17 /* EmailVerifyViewController.swift */,
+				3793455B29CCB30F00376A17 /* UIFont+Extensions.swift */,
+				3793455D29CCBE4200376A17 /* PasswordResetViewController.swift */,
 			);
 			path = FirebaseLoginChat;
 			sourceTree = "<group>";
@@ -191,9 +200,12 @@
 				3793454D29C4F49200376A17 /* SettingsViewController.swift in Sources */,
 				37B4C09B29C3D14400EDB4E5 /* UIViewController+Extensions.swift in Sources */,
 				3793455229C9374E00376A17 /* NavigationCell.swift in Sources */,
+				3793455A29CA794C00376A17 /* EmailVerifyViewController.swift in Sources */,
 				37B4C09D29C3DA6C00EDB4E5 /* MainViewController.swift in Sources */,
 				37B4C09729C27F4100EDB4E5 /* LoginViewController.swift in Sources */,
+				3793455E29CCBE4200376A17 /* PasswordResetViewController.swift in Sources */,
 				3793455629C937BE00376A17 /* SwitchCell.swift in Sources */,
+				3793455C29CCB30F00376A17 /* UIFont+Extensions.swift in Sources */,
 				37B4C09929C34B3300EDB4E5 /* RegisterViewController.swift in Sources */,
 				3793455829C93B9000376A17 /* ButtonCell.swift in Sources */,
 			);

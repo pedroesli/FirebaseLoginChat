@@ -84,8 +84,23 @@ class LoginViewController: UIViewController {
     
     private lazy var newAccountButton: UIButton = {
         let button = UIButton()
-        button.configuration = UIButton.Configuration.plain()
-        button.configuration?.title = "Não tem conta? Cadastre-se"
+        var config = UIButton.Configuration.plain()
+        var title = AttributedString("Não tem conta? Cadastre-se")
+        title.font = UIFont.preferredFont(forTextStyle: .body, weight: .bold)
+        config.attributedTitle = title
+        button.configuration = config
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var forgotPasswordButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        var title = AttributedString("Esqueceu a senha?")
+        title.font = UIFont.preferredFont(forTextStyle: .callout)
+        title.foregroundColor = .systemTeal
+        config.attributedTitle = title
+        button.configuration = config
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -104,6 +119,7 @@ class LoginViewController: UIViewController {
         self.navigationItem.backButtonTitle = "Voltar"
         
         loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
+        forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordButtonPressed), for: .touchUpInside)
         newAccountButton.addTarget(self, action: #selector(newAccountButtonPressed), for: .touchUpInside)
         
         view.addSubview(firebaseLogo)
@@ -114,6 +130,7 @@ class LoginViewController: UIViewController {
         view.addSubview(senhaTextField)
         view.addSubview(loginButton)
         if !isReauthenticationLogin {
+            view.addSubview(forgotPasswordButton)
             view.addSubview(newAccountButton)
         }
         configureConstraints()
@@ -157,7 +174,11 @@ class LoginViewController: UIViewController {
         
         if !isReauthenticationLogin {
             NSLayoutConstraint.activate([
-                newAccountButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+                forgotPasswordButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+                forgotPasswordButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+                forgotPasswordButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+                
+                newAccountButton.topAnchor.constraint(equalTo: forgotPasswordButton.bottomAnchor, constant: 16),
                 newAccountButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
                 newAccountButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
             ])
@@ -193,5 +214,9 @@ class LoginViewController: UIViewController {
     
     @objc func newAccountButtonPressed() {
         self.navigationController?.pushViewController(RegisterViewController(), animated: true)
+    }
+    
+    @objc func forgotPasswordButtonPressed() {
+        self.navigationController?.pushViewController(PasswordResetViewController(), animated: true)
     }
 }

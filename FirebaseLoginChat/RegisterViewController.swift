@@ -129,10 +129,10 @@ class RegisterViewController: UIViewController {
                 return
             }
             
+            Auth.auth().currentUser?.sendEmailVerification()
             self.showAlert(title: "Sucesso", message: "Conta criada com sucesso!") {
                 self.navigationController?.popViewController(animated: true)
             }
-            print(authResult?.user.email)
         }
     }
 }

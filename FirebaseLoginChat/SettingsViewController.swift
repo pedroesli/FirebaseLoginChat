@@ -47,13 +47,15 @@ class SettingsViewController: UIViewController {
     func settingOptionsSource() -> [SettingCell] {
         var settingOptions = [SettingCell]()
         settingOptions.append(NavigationCell(text: "Validar email", id: "validarEmail", action: navigationPressed(id:)))
-        settingOptions.append(ButtonCell(text: "Sing out", action: signOutPressed))
+        settingOptions.append(ButtonCell(text: "Finalizar sessão",textColor: .systemBlue, action: signOutPressed))
         settingOptions.append(ButtonCell(text: "Remover conta!", textColor: .red, action: deletePressed))
         return settingOptions
     }
     
     func navigationPressed(id: String) {
-        print("")
+        if id == "validarEmail" {
+            self.navigationController?.pushViewController(EmailVerifyViewController(), animated: true)
+        }
     }
     
     func signOutPressed() {

@@ -64,20 +64,29 @@
                                 </buttonConfiguration>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52m-Kb-tTz">
-                                <rect key="frame" x="16" y="640.66666666666663" width="361" height="35"/>
+                                <rect key="frame" x="16" y="690" width="361" height="34"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Não tem conta? Cadastre-se"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Não tem conta? Cadastre-se">
+                                    <fontDescription key="titleFontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hz4-4w-rvv">
+                                <rect key="frame" x="16" y="636.66666666666663" width="361" height="33.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Esqueceu a senha?">
+                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleCallout"/>
+                                </buttonConfiguration>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="52m-Kb-tTz" firstAttribute="top" secondItem="Huc-eA-Xfe" secondAttribute="bottom" constant="20" id="05w-TD-gZa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="52m-Kb-tTz" secondAttribute="trailing" constant="16" id="29G-93-dza"/>
                             <constraint firstItem="Huc-eA-Xfe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="3hP-VE-hma"/>
                             <constraint firstItem="KC1-h0-A3C" firstAttribute="top" secondItem="i5N-cT-mvM" secondAttribute="bottom" constant="20" id="7TU-Ac-8X2"/>
                             <constraint firstItem="i5N-cT-mvM" firstAttribute="top" secondItem="s9v-gp-a7u" secondAttribute="bottom" constant="8" id="GVQ-9t-ZSP"/>
                             <constraint firstItem="i5N-cT-mvM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="I9h-Tu-Ujj"/>
+                            <constraint firstItem="hz4-4w-rvv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="KT7-bx-w8o"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rso-DA-sp5" secondAttribute="trailing" constant="100" id="N5H-sC-cTV"/>
                             <constraint firstItem="rso-DA-sp5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="OdY-3S-RzD"/>
                             <constraint firstItem="WBW-OP-wDq" firstAttribute="top" secondItem="KC1-h0-A3C" secondAttribute="bottom" constant="8" id="QwT-zP-UDo"/>
@@ -86,16 +95,19 @@
                             <constraint firstItem="Huc-eA-Xfe" firstAttribute="top" secondItem="WBW-OP-wDq" secondAttribute="bottom" constant="40" id="Tba-Xa-Wxf"/>
                             <constraint firstItem="s9v-gp-a7u" firstAttribute="top" secondItem="gLb-er-9Yy" secondAttribute="bottom" constant="30" id="Uty-hG-GYj"/>
                             <constraint firstItem="gLb-er-9Yy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZZk-xM-tYd"/>
+                            <constraint firstItem="hz4-4w-rvv" firstAttribute="top" secondItem="Huc-eA-Xfe" secondAttribute="bottom" constant="16" id="b4m-PC-VFX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KC1-h0-A3C" secondAttribute="trailing" constant="16" id="bFn-do-dcT"/>
                             <constraint firstItem="KC1-h0-A3C" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="cd9-g7-Ytc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gLb-er-9Yy" secondAttribute="trailing" id="fHn-Hl-ngR"/>
                             <constraint firstItem="s9v-gp-a7u" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="iM6-u5-udN"/>
+                            <constraint firstItem="52m-Kb-tTz" firstAttribute="top" secondItem="hz4-4w-rvv" secondAttribute="bottom" constant="20" id="lsm-Sv-dvB"/>
                             <constraint firstItem="52m-Kb-tTz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="mZg-t1-7IG"/>
                             <constraint firstItem="rso-DA-sp5" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="oVg-Hg-KT4"/>
                             <constraint firstItem="WBW-OP-wDq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="qD8-oX-XjK"/>
                             <constraint firstItem="gLb-er-9Yy" firstAttribute="top" secondItem="rso-DA-sp5" secondAttribute="bottom" constant="20" id="tOC-GY-UEA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="s9v-gp-a7u" secondAttribute="trailing" constant="16" id="tzk-E8-IBT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WBW-OP-wDq" secondAttribute="trailing" constant="16" id="vKK-Lz-aqp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hz4-4w-rvv" secondAttribute="trailing" constant="16" id="x7M-QE-C4D"/>
                         </constraints>
                     </view>
                 </viewController>
