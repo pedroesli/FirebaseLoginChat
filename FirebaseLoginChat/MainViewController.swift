@@ -6,15 +6,21 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        self.navigationItem.backButtonTitle = "Voltar"
-        self.navigationItem.hidesBackButton = true
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+        title = "Hello, \(Auth.auth().currentUser?.displayName ?? "Anonymous")"
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        
+        navigationItem.backButtonTitle = "Voltar"
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "gearshape.fill"),
             style: .plain,
             target: self,

@@ -19,6 +19,14 @@ class RegisterViewController: UIViewController {
         return label
     }()
     
+    private let userNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Nome"
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email"
@@ -33,6 +41,17 @@ class RegisterViewController: UIViewController {
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private lazy var userNameTextField: UITextField = {
+        let textfield = UITextField()
+        textfield.placeholder = "Digite seu nome"
+        textfield.font = UIFont.preferredFont(forTextStyle: .body)
+        textfield.textContentType = .name
+        textfield.autocapitalizationType = .none
+        textfield.borderStyle = .roundedRect
+        textfield.translatesAutoresizingMaskIntoConstraints = false
+        return textfield
     }()
     
     private lazy var emailTextField: UITextField = {
@@ -76,6 +95,8 @@ class RegisterViewController: UIViewController {
         registerButton.addTarget(self, action: #selector(registerButtonPressed), for: .touchUpInside)
 
         view.addSubview(cadastrarFirebaseLabel)
+        view.addSubview(userNameLabel)
+        view.addSubview(userNameTextField)
         view.addSubview(emailLabel)
         view.addSubview(emailTextField)
         view.addSubview(senhaLabel)
@@ -93,7 +114,16 @@ class RegisterViewController: UIViewController {
             cadastrarFirebaseLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             cadastrarFirebaseLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-            emailLabel.topAnchor.constraint(equalTo: cadastrarFirebaseLabel.bottomAnchor, constant: 30),
+            userNameLabel.topAnchor.constraint(equalTo: cadastrarFirebaseLabel.bottomAnchor, constant: 30),
+            userNameLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            userNameLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            
+            userNameTextField.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 8),
+            userNameTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            userNameTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            userNameTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            emailLabel.topAnchor.constraint(equalTo: userNameTextField.bottomAnchor, constant: 20),
             emailLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             emailLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             
@@ -118,7 +148,7 @@ class RegisterViewController: UIViewController {
     }
     
     @objc func registerButtonPressed() {
-        guard let email = emailTextField.text, let password = senhaTextField.text else {
+        guard let email = emailTextField.text, let password = senhaTextField.text, let name = userNameTextField.text else {
             self.showAlert(title: "Inválido", message: "Email ou senha não podem ser vazios.")
             return
         }
@@ -129,7 +159,22 @@ class RegisterViewController: UIViewController {
                 return
             }
             
-            Auth.auth().currentUser?.sendEmailVerification()
+            guard let user = authResult?.user else { return }
+            
+            user.sendEmailVerification { error in
+                if let error {
+                    print("Error at seding email verification: \(error.localizedDescription)")
+                }
+            }
+            
+            let changeRequest = user.createProfileChangeRequest()
+            changeRequest.displayName = name
+            changeRequest.commitChanges { error in
+                if let error {
+                    print("Error at commiting changes: \(error.localizedDescription)")
+                }
+            }
+            
             self.showAlert(title: "Sucesso", message: "Conta criada com sucesso!") {
                 self.navigationController?.popViewController(animated: true)
             }

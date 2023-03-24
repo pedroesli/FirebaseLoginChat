@@ -15,6 +15,7 @@
 		3793455A29CA794C00376A17 /* EmailVerifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793455929CA794C00376A17 /* EmailVerifyViewController.swift */; };
 		3793455C29CCB30F00376A17 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793455B29CCB30F00376A17 /* UIFont+Extensions.swift */; };
 		3793455E29CCBE4200376A17 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793455D29CCBE4200376A17 /* PasswordResetViewController.swift */; };
+		3793456129CD145200376A17 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3793456029CD145200376A17 /* EditProfileViewController.swift */; };
 		37B4C07C29C273E100EDB4E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B4C07B29C273E100EDB4E5 /* AppDelegate.swift */; };
 		37B4C07E29C273E100EDB4E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B4C07D29C273E100EDB4E5 /* SceneDelegate.swift */; };
 		37B4C08329C273E100EDB4E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37B4C08129C273E100EDB4E5 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 		3793455929CA794C00376A17 /* EmailVerifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerifyViewController.swift; sourceTree = "<group>"; };
 		3793455B29CCB30F00376A17 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		3793455D29CCBE4200376A17 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
+		3793456029CD145200376A17 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		37B4C07829C273E100EDB4E5 /* FirebaseLoginChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseLoginChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B4C07B29C273E100EDB4E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37B4C07D29C273E100EDB4E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,15 @@
 			path = SettingCells;
 			sourceTree = "<group>";
 		};
+		3793455F29CCDE2000376A17 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				37B4C09A29C3D14400EDB4E5 /* UIViewController+Extensions.swift */,
+				3793455B29CCB30F00376A17 /* UIFont+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		37B4C06F29C273E100EDB4E5 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +106,7 @@
 		37B4C07A29C273E100EDB4E5 /* FirebaseLoginChat */ = {
 			isa = PBXGroup;
 			children = (
+				3793455F29CCDE2000376A17 /* Extensions */,
 				3793454E29C9371700376A17 /* SettingCells */,
 				37B4C07B29C273E100EDB4E5 /* AppDelegate.swift */,
 				37B4C07D29C273E100EDB4E5 /* SceneDelegate.swift */,
@@ -105,12 +117,11 @@
 				37B4C08F29C2754E00EDB4E5 /* GoogleService-Info.plist */,
 				37B4C09629C27F4100EDB4E5 /* LoginViewController.swift */,
 				37B4C09829C34B3300EDB4E5 /* RegisterViewController.swift */,
-				37B4C09A29C3D14400EDB4E5 /* UIViewController+Extensions.swift */,
 				37B4C09C29C3DA6C00EDB4E5 /* MainViewController.swift */,
 				3793454C29C4F49200376A17 /* SettingsViewController.swift */,
 				3793455929CA794C00376A17 /* EmailVerifyViewController.swift */,
-				3793455B29CCB30F00376A17 /* UIFont+Extensions.swift */,
 				3793455D29CCBE4200376A17 /* PasswordResetViewController.swift */,
+				3793456029CD145200376A17 /* EditProfileViewController.swift */,
 			);
 			path = FirebaseLoginChat;
 			sourceTree = "<group>";
@@ -202,6 +213,7 @@
 				3793455229C9374E00376A17 /* NavigationCell.swift in Sources */,
 				3793455A29CA794C00376A17 /* EmailVerifyViewController.swift in Sources */,
 				37B4C09D29C3DA6C00EDB4E5 /* MainViewController.swift in Sources */,
+				3793456129CD145200376A17 /* EditProfileViewController.swift in Sources */,
 				37B4C09729C27F4100EDB4E5 /* LoginViewController.swift in Sources */,
 				3793455E29CCBE4200376A17 /* PasswordResetViewController.swift in Sources */,
 				3793455629C937BE00376A17 /* SwitchCell.swift in Sources */,

@@ -23,6 +23,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemGroupedBackground
         title = "Configuração"
+        navigationItem.largeTitleDisplayMode = .never
         
         settingOptions = settingOptionsSource()
         tableView.dataSource = self
@@ -46,15 +47,21 @@ class SettingsViewController: UIViewController {
     
     func settingOptionsSource() -> [SettingCell] {
         var settingOptions = [SettingCell]()
+        settingOptions.append(NavigationCell(text: "Editar perfil", id: "editarPerfil", action: navigationPressed(id:)))
         settingOptions.append(NavigationCell(text: "Validar email", id: "validarEmail", action: navigationPressed(id:)))
-        settingOptions.append(ButtonCell(text: "Finalizar sessão",textColor: .systemBlue, action: signOutPressed))
+        settingOptions.append(ButtonCell(text: "Finalizar sessão", textColor: .systemBlue, action: signOutPressed))
         settingOptions.append(ButtonCell(text: "Remover conta!", textColor: .red, action: deletePressed))
         return settingOptions
     }
     
     func navigationPressed(id: String) {
-        if id == "validarEmail" {
+        switch id {
+        case "validarEmail":
             self.navigationController?.pushViewController(EmailVerifyViewController(), animated: true)
+        case "editarPerfil":
+            self.navigationController?.pushViewController(EditProfileViewController(), animated: true)
+        default:
+            break
         }
     }
     

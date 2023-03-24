@@ -116,7 +116,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        self.navigationItem.backButtonTitle = "Voltar"
+        navigationItem.backButtonTitle = "Voltar"
         
         loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordButtonPressed), for: .touchUpInside)
