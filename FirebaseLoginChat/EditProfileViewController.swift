@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class EditProfileViewController: UIViewController {
     
@@ -92,10 +93,57 @@ class EditProfileViewController: UIViewController {
     }
     
     func initialValuesOfFields() {
-        //guard let user =
+        guard let user = Auth.auth().currentUser else { return }
+        
+        userNameTextField.text = user.displayName
+        emailTextField.text = user.email
     }
     
     @objc func saveButtonPressed() {
+        guard let user = Auth.auth().currentUser else { return }
         
+        if let name = userNameTextField.text,  name != user.displayName {
+            saveName(name)
+        }
+        
+        if let email = emailTextField.text, email != user.email {
+            saveEmail(email)
+        }
+    }
+    
+    func saveName(_ displayName: String) {
+        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = displayName
+        changeRequest?.commitChanges { error in
+            if let error {
+                print("Error could not save name: \(error.localizedDescription)")
+                return
+            }
+            
+            NotificationCenter.default.post(name: NSNotification.Name("com.user.changed.displayname"), object: nil)
+        }
+    }
+    
+    func saveEmail(_ email: String) {
+        Auth.auth().currentUser?.updateEmail(to: email) { error in
+            if let error = error as? NSError {
+                let errorCode = AuthErrorCode(_nsError: error)
+                
+                if errorCode.code == .emailAlreadyInUse {
+                    self.showAlert(title: "Email invalido", message: "Este email já está em uso.")
+                } else if errorCode.code == .requiresRecentLogin {
+                    let loginView = LoginViewController()
+                    loginView.isReauthenticationLogin = true
+                    loginView.reauthenticationAction = {
+                        self.saveEmail(email)
+                    }
+                    self.present(loginView, animated: true)
+                } else {
+                    print("Error could not save email: \(error.localizedDescription)")
+                }
+                
+                return
+            }
+        }
     }
 }

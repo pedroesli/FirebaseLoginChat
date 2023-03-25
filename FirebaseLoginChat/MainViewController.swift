@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 
 class MainViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -26,9 +26,15 @@ class MainViewController: UIViewController {
             target: self,
             action: #selector(settingsButtonPressed)
         )
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(displayNameChanged), name: NSNotification.Name("com.user.changed.displayname"), object: nil)
     }
     
     @objc func settingsButtonPressed() {
         self.navigationController?.pushViewController(SettingsViewController(), animated: true)
+    }
+    
+    @objc func displayNameChanged() {
+        title = "Hello, \(Auth.auth().currentUser?.displayName ?? "Anonymous")"
     }
 }

@@ -40,7 +40,7 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    private let senhaLabel: UILabel = {
+    private let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Senha"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -59,7 +59,7 @@ class LoginViewController: UIViewController {
         return textfield
     }()
     
-    private lazy var senhaTextField: UITextField = {
+    private lazy var passwordTextField: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "Digite sua senha"
         textfield.font = UIFont.preferredFont(forTextStyle: .body)
@@ -126,8 +126,8 @@ class LoginViewController: UIViewController {
         view.addSubview(loginFirebaseLabel)
         view.addSubview(emailLabel)
         view.addSubview(emailTextField)
-        view.addSubview(senhaLabel)
-        view.addSubview(senhaTextField)
+        view.addSubview(passwordLabel)
+        view.addSubview(passwordTextField)
         view.addSubview(loginButton)
         if !isReauthenticationLogin {
             view.addSubview(forgotPasswordButton)
@@ -158,16 +158,16 @@ class LoginViewController: UIViewController {
             emailTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             emailTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            senhaLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
-            senhaLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            senhaLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            passwordLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
+            passwordLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            passwordLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             
-            senhaTextField.topAnchor.constraint(equalTo: senhaLabel.bottomAnchor, constant: 8),
-            senhaTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
-            senhaTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            senhaTextField.heightAnchor.constraint(equalToConstant: 50),
+            passwordTextField.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 8),
+            passwordTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+            passwordTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            loginButton.topAnchor.constraint(equalTo: senhaTextField.bottomAnchor, constant: 40),
+            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40),
             loginButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             loginButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16)
         ])
@@ -186,28 +186,52 @@ class LoginViewController: UIViewController {
     }
     
     @objc func loginButtonPressed() {
-        guard let email = emailTextField.text, let password = senhaTextField.text else { return }
+        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
         
         if isReauthenticationLogin {
             let credential = EmailAuthProvider.credential(withEmail: email, password: password)
-            Auth.auth().currentUser?.reauthenticate(with: credential, completion: { result, error in
+            Auth.auth().currentUser?.reauthenticate(with: credential) { result, error in
                 if let error {
                     print("Error ao reautenticar: \(error.localizedDescription)")
                 } else {
                     self.reauthenticationAction?()
                 }
                 self.dismiss(animated: true)
-            })
+            }
         } else {
             Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-              guard let strongSelf = self else { return }
+                guard let strongSelf = self else { return }
                 if let error {
                     strongSelf.showAlert(title: "Erro", message: "Não foi possível fazer login!")
                     print("Erro ao fazer login: \(error.localizedDescription)")
                     return
                 }
                 
-                strongSelf.navigationController?.pushViewController(MainViewController(), animated: true)
+                guard let user = authResult?.user else { return }
+                
+                user.reload { error in
+                    if let error {
+                        print("Error reloading user data: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    if !user.isEmailVerified {
+                        let alert = UIAlertController(title: "Email não verificado", message: "Deseja enviar outro email de verifição?", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Enviar", style: .default, handler: { action in
+                            Auth.auth().currentUser?.sendEmailVerification { error in
+                                if let error {
+                                    print("Error at seding email verification: \(error.localizedDescription)")
+                                }
+                            }
+                        }))
+                        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
+                        strongSelf.present(alert, animated: true)
+                    } else {
+                        strongSelf.emailTextField.text = ""
+                        strongSelf.passwordTextField.text = ""
+                        strongSelf.navigationController?.pushViewController(MainViewController(), animated: true)
+                    }
+                }
             }
         }
     }

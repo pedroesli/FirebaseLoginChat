@@ -48,9 +48,9 @@ class SettingsViewController: UIViewController {
     func settingOptionsSource() -> [SettingCell] {
         var settingOptions = [SettingCell]()
         settingOptions.append(NavigationCell(text: "Editar perfil", id: "editarPerfil", action: navigationPressed(id:)))
-        settingOptions.append(NavigationCell(text: "Validar email", id: "validarEmail", action: navigationPressed(id:)))
+//        settingOptions.append(NavigationCell(text: "Validar email", id: "validarEmail", action: navigationPressed(id:)))
         settingOptions.append(ButtonCell(text: "Finalizar sessão", textColor: .systemBlue, action: signOutPressed))
-        settingOptions.append(ButtonCell(text: "Remover conta!", textColor: .red, action: deletePressed))
+        settingOptions.append(ButtonCell(text: "Remover conta!", textColor: .red, action: deleteAccountPressed))
         return settingOptions
     }
     
@@ -74,15 +74,15 @@ class SettingsViewController: UIViewController {
         }
     }
     
-    func deletePressed() {
+    func deleteAccountPressed() {
         self.showDeleteAlert(title: "Cuidado!", message: "Tem certeza que deseja remover a sua conta?") {
-            Auth.auth().currentUser?.delete(completion: { error in
+            Auth.auth().currentUser?.delete { error in
                 if let error = error as? NSError {
                     let errorCode = AuthErrorCode(_nsError: error)
                     if errorCode.code == .requiresRecentLogin {
                         let loginView = LoginViewController()
                         loginView.isReauthenticationLogin = true
-                        loginView.reauthenticationAction = self.retryDelete
+                        loginView.reauthenticationAction = self.retryDeleteAccount
                         self.present(loginView, animated: true)
                     } else {
                         print("Error deleting user: \(error.localizedDescription)")
@@ -94,12 +94,12 @@ class SettingsViewController: UIViewController {
                     try! Auth.auth().signOut()
                     self.navigationController?.popToRootViewController(animated: true)
                 }
-            })
+            }
         }
     }
     
-    func retryDelete() {
-        Auth.auth().currentUser?.delete(completion: { error in
+    func retryDeleteAccount() {
+        Auth.auth().currentUser?.delete { error in
             if let error {
                 print("Error deleting user: \(error.localizedDescription)")
                 return
@@ -109,7 +109,7 @@ class SettingsViewController: UIViewController {
                 try! Auth.auth().signOut()
                 self.navigationController?.popToRootViewController(animated: true)
             }
-        })
+        }
     }
 }
 
